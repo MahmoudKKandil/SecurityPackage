@@ -15,12 +15,49 @@ namespace SecurityLibrary
 
         public string Decrypt(string cipherText, string key)
         {
-            throw new NotImplementedException();
+            cipherText.ToLower();
+
+            // Character array that hold the required to decrypt string with the same length of string
+            char[] DecryptedWord = new char[cipherText.Length];
+
+            // For loop that change each key alphabet with the real alphabet
+            for (int i = 0; i < cipherText.Length; i++)
+            {
+                if (cipherText[i] == ' ')
+                    DecryptedWord[i] = ' ';
+                else
+                {
+
+                    // Character = Index key characters array [(character)index + (ascii for letter a)] to get the assci of the character in alphabet
+                    int hold = key.IndexOf(cipherText[i]);
+                    hold = hold + 'a';
+                    DecryptedWord[i] = (char)hold;
+                }
+            }
+            string Decrypted_Word = new string(DecryptedWord);
+            return Decrypted_Word;
         }
 
         public string Encrypt(string plainText, string key)
         {
-            throw new NotImplementedException();
+            plainText.ToLower();
+
+            // Character array that hold the required to encrypt string with the same length of string
+            char[] EncryptedWord = new char[plainText.Length];
+
+            // For loop that change each alphabet with the key alphabet
+            for (int i = 0; i < plainText.Length; i++)
+            {
+                if (plainText[i] == ' ')
+                    EncryptedWord[i] = ' ';
+                else
+
+                    // Character = key characters array [(character)ascii - (ascii for letter a)] to get the index of the character in key
+                    EncryptedWord[i] = key[plainText[i] - 'a'];
+            }
+
+            string Encrypted_word= new string(EncryptedWord);
+            return Encrypted_word;
         }
 
         /// <summary>
