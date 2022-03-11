@@ -112,23 +112,23 @@ namespace SecurityLibrary
 
         }
 
-        public string Decrypt(string cipherText, string key)
+        public string Decrypt(string word, string key)
 
         {
             Dictionary<char, Coords> dictionary = createDectionary(key);
             string newWord = "";
             int i = 0;
             bool checkDuplicate = false;
-            while (i < cipherText.Length)
+            while (i < word.Length)
             {
                 bool firstIsUpper = false, secIsUpper = false;
-                char firstChar = cipherText[i];
+                char firstChar = word[i];
                 char secChar;
 
-                secChar = cipherText[i + 1];
+                secChar = word[i + 1];
 
-                if (char.IsUpper(firstChar)) { firstIsUpper = true; char.ToLower(firstChar); }
-                if (char.IsUpper(secChar)) { secIsUpper = true; char.ToLower(secChar); }
+                if (char.IsUpper(firstChar)) { firstIsUpper = true; firstChar = char.ToLower(firstChar); }
+                if (char.IsUpper(secChar)) { secIsUpper = true; secChar = char.ToLower(secChar); }
                 char c1, c2;
                 Coords firstCoord = dictionary[firstChar];
                 Coords secondCord = dictionary[secChar];
@@ -178,16 +178,22 @@ namespace SecurityLibrary
                 if (secIsUpper) { c2 = char.ToUpper(c2); secIsUpper = true; }
                 if (checkDuplicate == true)
                 {
+
                     if (c1 == char.ToUpper(newWord[i - 2]) || c1 == char.ToLower(newWord[i - 2]))
                     {
                         newWord = newWord.Substring(0, newWord.Length - 1);
+                        checkDuplicate = false;
+
                     }
                 }
                 newWord += c1;
-                newWord += c2;
-                if (c2 == 'x') checkDuplicate = true;
-                if (i != cipherText.Length - 1 && cipherText[i + 1] == firstChar) i++;
-                else i += 2;
+                if (char.ToUpper(c2) != 'X' || i + 1 != word.Length - 1)
+                    newWord += c2;
+                if (c2 == 'x' || c2 == 'X')
+                {
+                    checkDuplicate = true;
+                }
+                i += 2;
 
             }
             return newWord;
