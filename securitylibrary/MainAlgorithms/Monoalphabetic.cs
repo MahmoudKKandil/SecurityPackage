@@ -29,8 +29,7 @@ namespace SecurityLibrary
                 {
 
                     // Character = Index key characters array [(character)index + (ascii for letter a)] to get the assci of the character in alphabet
-                    int hold = key.IndexOf(cipherText[i]);
-                    hold = hold + 'a';
+                    int hold = key.IndexOf(cipherText[i]) + 'a';
                     DecryptedWord[i] = (char)hold;
                 }
             }
