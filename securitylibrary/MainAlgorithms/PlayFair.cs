@@ -175,16 +175,17 @@ namespace SecurityLibrary
 
                 if (firstIsUpper) { c1 = char.ToUpper(c1); firstIsUpper = false; }
 
-                if (secIsUpper) { c2 = char.ToUpper(c2); secIsUpper = true; }
+                if (secIsUpper) { c2 = char.ToUpper(c2); secIsUpper = false; }
                 if (checkDuplicate == true)
                 {
 
-                    if (c1 == char.ToUpper(newWord[i - 2]) || c1 == char.ToLower(newWord[i - 2]))
+                    if (c1 == char.ToUpper(newWord[newWord.Length- 2]) || c1 == char.ToLower(newWord[newWord.Length - 2]))
                     {
                         newWord = newWord.Substring(0, newWord.Length - 1);
-                        checkDuplicate = false;
+                       
 
                     }
+                    checkDuplicate = false;
                 }
                 newWord += c1;
                 if (char.ToUpper(c2) != 'X' || i + 1 != word.Length - 1)
