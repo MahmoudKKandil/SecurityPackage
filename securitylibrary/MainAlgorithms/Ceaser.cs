@@ -135,22 +135,21 @@ namespace SecurityLibrary
         {
             int result;
 
-            int[] arr1 = new int[plainText.Length];
-            int[] arr2 = new int[cipherText.Length];
+            int a1, a2;
 
             if (Dictionary1.ContainsKey(plainText[0]))
-                arr1[0] = Dictionary1[plainText[0]];
+                a1 = Dictionary1[plainText[0]];
 
-            if (Dictionary2.ContainsKey(plainText[0]))
-                arr1[0] = Dictionary2[plainText[0]];
+            else
+                a1 = Dictionary2[plainText[0]];
 
             if (Dictionary1.ContainsKey(cipherText[0]))
-                arr2[0] = Dictionary1[cipherText[0]];
+                a2 = Dictionary1[cipherText[0]];
 
-            if (Dictionary2.ContainsKey(cipherText[0]))
-                arr2[0] = Dictionary2[cipherText[0]];
+            else
+                a2 = Dictionary2[cipherText[0]];
 
-            result = (arr2[0] - arr1[0]) % 26;
+            result = (a2- a1) % 26;
             if (result < 0)
                 result = result + 26;
 

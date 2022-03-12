@@ -15,7 +15,7 @@ namespace SecurityLibrary
 
         public string Decrypt(string cipherText, string key)
         {
-            cipherText.ToLower();
+            cipherText=cipherText.ToLower();
 
             // Character array that hold the required to decrypt string with the same length of string
             char[] DecryptedWord = new char[cipherText.Length];
@@ -29,8 +29,8 @@ namespace SecurityLibrary
                 {
 
                     // Character = Index key characters array [(character)index + (ascii for letter a)] to get the assci of the character in alphabet
-                    int hold = key.IndexOf(cipherText[i]) + 'a';
-                    DecryptedWord[i] = (char)hold;
+                    int hold = key.IndexOf(cipherText[i]);
+                    DecryptedWord[i] = (char)(hold+'a');
                 }
             }
             string Decrypted_Word = new string(DecryptedWord);
