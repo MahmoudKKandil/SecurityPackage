@@ -53,9 +53,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="PlayfairTest.cs" />
-    <Compile Include="MonoalphabeticTest.cs" />
-    <Compile Include="CeaserTest.cs" />
+    <Compile Include="Lab2\ColumnarTest.cs" />
+    <Compile Include="Lab2\HillCipherTest.cs" />
+    <Compile Include="Lab2\RailFenceTest.cs" />
+    <Compile Include="Lab2\VignereTest.cs" />
+    <Compile Include="Lab1\PlayfairTest.cs" />
+    <Compile Include="Lab1\MonoalphabeticTest.cs" />
+    <Compile Include="Lab1\CeaserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +68,7 @@
       <Name>SecurityLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

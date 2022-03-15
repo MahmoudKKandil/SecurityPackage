@@ -11,6 +11,7 @@ namespace SecurityLibrary
     /// </summary>
     public class HillCipher :  ICryptographicTechnique<List<int>, List<int>>
     {
+       
         public List<int> Analyse(List<int> plainText, List<int> cipherText)
         {
             throw new NotImplementedException();
@@ -30,6 +31,33 @@ namespace SecurityLibrary
 
 
         public List<int> Analyse3By3Key(List<int> plainText, List<int> cipherText)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        //bonus
+        public string Analyse(string plainText, string cipherText)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public string Decrypt(string cipherText, string key)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        public string Encrypt(string plainText, string key)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        public string Analyse3By3Key(string plainText, string cipherText)
         {
             throw new NotImplementedException();
         }
