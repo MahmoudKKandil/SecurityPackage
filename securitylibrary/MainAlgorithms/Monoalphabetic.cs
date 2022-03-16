@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SecurityLibrary
 {
@@ -10,52 +9,64 @@ namespace SecurityLibrary
     {
         public string Analyse(string plainText, string cipherText)
         {
-            throw new NotImplementedException();
+            cipherText=cipherText.ToLower();
+            plainText = plainText.ToLower();
+            var key = new char[26];
+
+            for (var i = 0; i < cipherText.Length; i++)
+            {
+                
+                var hold1 = plainText[i]-'a';
+                var hold2 = cipherText[i]-'a';
+                key[hold1] = (char)('a' +hold2);
+            }
+
+            var cur = 'a';
+            for (var i = 0; i < key.Length; i++)
+                if (key [i]< 'a')
+                {
+                    while (key.Contains(cur)) 
+                        cur++;
+                    key[i]  = cur;
+                }
+            return new string(key);
         }
 
         public string Decrypt(string cipherText, string key)
         {
-            cipherText=cipherText.ToLower();
+            cipherText = cipherText.ToLower();
+            var DecryptedWord = new char[cipherText.Length];
 
-            // Character array that hold the required to decrypt string with the same length of string
-            char[] DecryptedWord = new char[cipherText.Length];
-
-            // For loop that change each key alphabet with the real alphabet
-            for (int i = 0; i < cipherText.Length; i++)
-            {
+            for (var i = 0; i < cipherText.Length; i++)
                 if (cipherText[i] == ' ')
+                {
                     DecryptedWord[i] = ' ';
+                }
                 else
                 {
 
-                    // Character = Index key characters array [(character)index + (ascii for letter a)] to get the assci of the character in alphabet
-                    int hold = key.IndexOf(cipherText[i]);
-                    DecryptedWord[i] = (char)(hold+'a');
+                    var hold = key.IndexOf(cipherText[i]);
+                    DecryptedWord[i] = (char)(hold + 'a');
                 }
-            }
-            string Decrypted_Word = new string(DecryptedWord);
+
+            var Decrypted_Word = new string(DecryptedWord);
             return Decrypted_Word;
         }
 
         public string Encrypt(string plainText, string key)
         {
-            plainText.ToLower();
+            plainText = plainText.ToLower();
 
-            // Character array that hold the required to encrypt string with the same length of string
-            char[] EncryptedWord = new char[plainText.Length];
+            var EncryptedWord = new char[plainText.Length];
 
-            // For loop that change each alphabet with the key alphabet
-            for (int i = 0; i < plainText.Length; i++)
-            {
+            for (var i = 0; i < plainText.Length; i++)
                 if (plainText[i] == ' ')
                     EncryptedWord[i] = ' ';
                 else
 
-                    // Character = key characters array [(character)ascii - (ascii for letter a)] to get the index of the character in key
                     EncryptedWord[i] = key[plainText[i] - 'a'];
-            }
 
-            string Encrypted_word= new string(EncryptedWord);
+            var Encrypted_word = new string(EncryptedWord);
             return Encrypted_word;
         }
 
@@ -92,7 +103,50 @@ namespace SecurityLibrary
         /// <returns>Plain text</returns>
         public string AnalyseUsingCharFrequency(string cipher)
         {
-            throw new NotImplementedException();
+            cipher=cipher.ToLower();
+            Dictionary<Char, Double> cipherFreq = new Dictionary<char, double>();
+            Dictionary<Char, Double> engFreq = new Dictionary<char, double>();
+            Double[] engVal = { 8.04, 1.54, 3.06, 3.99, 12.51, 2.30, 1.96, 5.49, 7.26, 0.16, 0.67, 4.14, 2.53, 7.09, 7.60, 2.00, 0.11, 6.12, 6.54, 9.25, 2.71, 0.99, 1.92, 0.19, 1.73, 0.09 };
+
+            for (char i = 'a'; i <= 'z'; i++)
+            {
+                engFreq.Add(i, engVal[ (i - 'a')]);
+                cipherFreq.Add(i, 0);
+            }
+            foreach (char a in cipher)
+            {
+                cipherFreq[a] += 1;
+            }
+
+            int cipherLen = cipher.Length;
+            for (char i = 'a'; i <= 'z'; i++)
+            {
+                cipherFreq[i] /= cipherLen;
+            }
+            var frequenciesInEnglishList = engFreq.ToList();
+            frequenciesInEnglishList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+
+            var frequenciesInCipherList = cipherFreq.ToList();
+            frequenciesInCipherList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+
+            bool[] charReplaced = new bool[cipher.Length];
+            StringBuilder plaintext = new StringBuilder(cipher);
+
+            for (int i = 0; i < 26; i++)
+            {
+                char charInCipher = frequenciesInCipherList[i].Key;
+                char charInEnglish = frequenciesInEnglishList[i].Key;
+                for (int j = 0; j < cipher.Length; j++)
+                {
+                    if (plaintext[j] == charInCipher && charReplaced[j] != true)
+                    {
+                        plaintext[j] = charInEnglish;
+                        charReplaced[j] = true;
+                    }
+                }
+            }
+
+            return plaintext.ToString();
         }
     }
 }
