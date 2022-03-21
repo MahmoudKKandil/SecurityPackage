@@ -334,7 +334,7 @@ namespace SecurityLibrary
             List<int> arrInv = new List<int>();
             if (found == false)
             {
-                Console.WriteLine("no inverse");
+                throw new InvalidAnlysisException();
             }
 
             int b;
@@ -366,27 +366,134 @@ namespace SecurityLibrary
         //bonus
         public string Analyse(string plainText, string cipherText)
         {
-            throw new NotImplementedException();
+            plainText = plainText.ToUpper();
+            cipherText = cipherText.ToUpper();
+
+            List<int> newPlain = new List<int>();
+            List<int> newkey = new List<int>();
+            List<int> newcipher = new List<int>();
+
+            for (int i = 0; i < plainText.Length; i++)
+                newPlain.Add(plainText[i] - 'A');
+
+
+            for (int i = 0; i < cipherText.Length; i++)
+
+                newcipher.Add(cipherText[i] - 'A');
+
+
+
+            newkey = Analyse(newPlain, newcipher);
+            char[] Key = new char[newkey.Count];
+            for (int i = 0; i < newkey.Count; i++)
+
+                Key[i] = (char)(newkey[i] + 'A');
+
+
+
+            return new string(Key);
         }
 
 
         public string Decrypt(string cipherText, string key)
         {
-            throw new NotImplementedException();
+            cipherText = cipherText.ToUpper();
+            key = key.ToUpper();
+
+            List<int> Plain = new List<int>();
+            List<int> newkey = new List<int>();
+            List<int> cipher = new List<int>();
+
+            for (int i = 0; i < cipherText.Length; i++)
+                cipher.Add(cipherText[i] - 'A');
+
+
+            for (int i = 0; i < key.Length; i++)
+
+                newkey.Add(key[i] - 'A');
+
+
+
+          Plain = Decrypt(cipher, newkey);
+            char[] newPlain = new char[Plain.Count];
+            for (int i = 0; i < Plain.Count; i++)
+
+                newPlain[i] = (char)(Plain[i] + 'A');
+
+
+
+          string res=new string(newPlain);
+            return res.ToLower();
+
         }
 
 
 
         public string Encrypt(string plainText, string key)
         {
-            throw new NotImplementedException();
+
+            plainText = plainText.ToUpper();
+            key = key.ToUpper();
+
+            List<int> newPlain = new List<int>();
+            List<int> newkey = new List<int>();
+            List<int> cipher = new List<int>();
+
+            for (int i = 0; i < plainText.Length; i++)
+                newPlain.Add(plainText[i] - 'A');
+
+
+            for (int i = 0; i < key.Length; i++)
+            
+                newkey.Add(key[i] - 'A');
+
+            
+
+            cipher = Encrypt(newPlain, newkey);
+            char[] newcipher = new char[cipher.Count];
+            for (int i = 0; i < cipher.Count; i++)
+            
+                newcipher[i] = (char)(cipher[i] + 'A');
+
+            
+
+            return new string(newcipher);
+            
+
+
+
         }
 
 
 
         public string Analyse3By3Key(string plainText, string cipherText)
         {
-            throw new NotImplementedException();
+            plainText = plainText.ToUpper();
+            cipherText = cipherText.ToUpper();
+
+            List<int> newPlain = new List<int>();
+            List<int> newkey = new List<int>();
+            List<int> newcipher = new List<int>();
+
+            for (int i = 0; i < plainText.Length; i++)
+                newPlain.Add(plainText[i] - 'A');
+
+
+            for (int i = 0; i < cipherText.Length; i++)
+
+                newcipher.Add(cipherText[i] - 'A');
+
+
+
+            newkey = Analyse3By3Key(newPlain, newcipher);
+            char[] Key = new char[newkey.Count];
+            for (int i = 0; i < newkey.Count; i++)
+
+                Key[i] = (char)(newkey[i] + 'A');
+
+
+
+            return new string(Key);
         }
 
     }
