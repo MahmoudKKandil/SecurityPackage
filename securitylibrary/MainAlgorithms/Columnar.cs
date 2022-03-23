@@ -15,9 +15,35 @@ namespace SecurityLibrary
 
         public string Decrypt(string cipherText, List<int> key)
         {
-            throw new NotImplementedException();
+            Dictionary<int, int> d = new Dictionary<int, int>();
+            for (int i = 0; i < key.Count; i++)
+            {
 
+                d.Add(i, key[i] - 1);
+            }
+            string plaintext = "";
+            int noOfRows = (cipherText.Length + key.Count - 1) / key.Count;//it is round up the result
+
+            for (int i = 0; i < noOfRows; i++)
+            {
+                int start = d[0];
+                for (int j = 0; j < key.Count; j++)
+                {
+
+                     plaintext += cipherText[(start * noOfRows) + i];
+
+                    start = j + 1;
+                    start %= key.Count;
+                    start = d[start];
+
+
+
+                }
+
+            }
+            return plaintext;
         }
+    
 
         public string Encrypt(string plainText, List<int> key)
         {
