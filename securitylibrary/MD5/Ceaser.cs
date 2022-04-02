@@ -49,9 +49,9 @@ namespace SecurityLibrary
         {
 
             a = (a - key) % 26;
-            if (a < 0)
-                a = a + 26;
-
+           
+            while (a < 0)
+                a += 26;
             return a;
         }
         public int Analyse(string plainText, string cipherText)
@@ -64,7 +64,7 @@ namespace SecurityLibrary
             ind1 = cipherText[0] - 'A';
             ind2 = plainText[0] - 'A';
             result = (ind1 - ind2) % 26;
-            if (result < 0)
+            while(result < 0)
                 result = result + 26;
             return result;
         }

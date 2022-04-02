@@ -27,7 +27,7 @@ namespace SecurityLibrary
                         continue;
                     determinant = plainText[i] * plainText[j + 1] - plainText[i + 1] * plainText[j];
                     determinant = (determinant % 26);
-                    if (determinant < 0)
+                    while (determinant < 0)
                         determinant = determinant + 26;
                     if (gcd(determinant, 26) == 1 && determinant != 0)
                     {
@@ -68,7 +68,7 @@ namespace SecurityLibrary
             arrInv.Add(newPlain[0]);
             for (int i = 0; i < arrInv.Count; i++)
             {
-                if (arrInv[i] < 0)
+                while (arrInv[i] < 0)
                     arrInv[i] = arrInv[i] + 26;
                 arrInv[i] = (arrInv[i] * b) % 26;
 
@@ -124,21 +124,22 @@ namespace SecurityLibrary
             }
             return c;
         }
-        static int modInverse(int a, int n)
+        static int modInverse(int a, int Mod)
         {
-            int i = n, v = 0, d = 1;
+            int M = Mod, K = 0, d = 1;
             while (a > 0)
             {
-                int t = i / a, x = a;
-                a = i % x;
-                i = x;
+                int t = M / a, x = a;
+                a = M % x;
+                M = x;
                 x = d;
-                d = v - t * x;
-                v = x;
+                d = K - t * x;
+                K = x;
             }
-            v %= n;
-            if (v < 0) v = (v + n) % n;
-            return v;
+           K %= Mod;
+            if (K < 0)
+               K = (K + Mod) % Mod;
+            return K;
         }
         public List<int> Decrypt(List<int> cipherText, List<int> key)
         {
@@ -153,7 +154,7 @@ namespace SecurityLibrary
             {
                 det = key[0] * key[3] - key[1] * key[2];
                 det = (det % 26);
-                if (det < 0)
+                while (det < 0)
                     det = det + 26;
                 if (det == 0 || gcd(det, 26) > 1)
                     throw new System.Exception();
@@ -166,7 +167,7 @@ namespace SecurityLibrary
                 arrInv.Add(key[0]);
                 for (int i = 0; i < arrInv.Count; i++)
                 {
-                    if (arrInv[i] < 0)
+                    while (arrInv[i] < 0)
                         arrInv[i] = arrInv[i] + 26;
                     arrInv[i] = (arrInv[i] * b) % 26;
 
@@ -179,7 +180,7 @@ namespace SecurityLibrary
                    + key[2] * (key[7] * key[3] - key[4] * key[6]);
                 det = (det % 26);
 
-                if (det < 0)
+               while(det < 0)
                     det = det + 26;
 
                 if (det == 0 || gcd(det, 26) > 1)
@@ -207,7 +208,7 @@ namespace SecurityLibrary
                     index = i;
                     for (int j = 0; j < m; j++)
                     {
-                        if (arr[index] < 0)
+                        while (arr[index] < 0)
                             arr[index] = arr[index] + 26;
                         arrInv.Add(arr[index]);
                         index += m;
@@ -223,17 +224,15 @@ namespace SecurityLibrary
         static int gcd(int a, int b)
         {
 
-            // Everything divides 0
-            if (a == 0)
-                return b;
             if (b == 0)
                 return a;
 
-            // base case
+            if (a == 0)
+                return b;
+     
             if (a == b)
                 return a;
-
-            // a is greater
+            
             if (a > b)
                 return gcd(a - b, b);
 
@@ -291,7 +290,7 @@ namespace SecurityLibrary
                        plainText[j] * (plainText[z + 2] * plainText[i + 1] - plainText[z + 1] * plainText[i + 2])
                        + plainText[z] * (plainText[j + 2] * plainText[i + 1] - plainText[j + 1] * plainText[i + 2]);
                         determinant = (determinant % 26);
-                        if (determinant < 0)
+                       while (determinant < 0)
                             determinant = determinant + 26;
                         if (gcd(determinant, 26) == 1 && determinant != 0)
                         {
@@ -352,7 +351,7 @@ namespace SecurityLibrary
             for (int i = 0; i < arr.Count; i++)
             {
 
-                if (arr[i] < 0)
+               while (arr[i] < 0)
                     arr[i] = arr[i] + 26;
 
 
