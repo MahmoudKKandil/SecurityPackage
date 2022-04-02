@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecurityLibrary
+﻿namespace SecurityLibrary
 {
     public class RailFence : ICryptographicTechnique<string, int>
     {
         public int Analyse(string plainText, string cipherText)
         {
-            throw new NotImplementedException();
+            int key=0;
+            cipherText = cipherText.ToLower();
+            for (int i = 1; i < plainText.Length; i++)
+            {
+                if (plainText[i]==cipherText[1])
+                {
+                    if (plainText[i*2]==cipherText[2])
+                    {
+                        return i;
+                    }
+                }
+            }
+            return key;
         }
 
         public string Decrypt(string cipherText, int key)

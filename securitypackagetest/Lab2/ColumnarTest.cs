@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SecurityLibrary;
+using System;
+using System.Collections.Generic;
 
 namespace SecurityPackageTest
 {
@@ -44,11 +44,11 @@ namespace SecurityPackageTest
         public void ColumnarTestDec1()
         {
             Columnar algorithm = new Columnar();
-            //string plain1 = algorithm.Decrypt(mainCipher1, mainkey);
+            string plain1 = algorithm.Decrypt(mainCipher1, mainkey);
             string plain2 = algorithm.Decrypt(mainCipher2, mainkey);
 
-            Assert.IsTrue(//plain1.Equals(mainPlain1, StringComparison.InvariantCultureIgnoreCase)
-             //||
+            Assert.IsTrue(plain1.Equals(mainPlain1, StringComparison.InvariantCultureIgnoreCase)
+             ||
              plain2.Equals(mainPlain2, StringComparison.InvariantCultureIgnoreCase));
         }
 
@@ -93,12 +93,12 @@ namespace SecurityPackageTest
         public void ColumnarTestDec3()
         {
             Columnar algorithm = new Columnar();
-            //string plain1 = algorithm.Decrypt(mainCipher4, mainkey2);
+            string plain1 = algorithm.Decrypt(mainCipher4, mainkey2);
             string plain2 = algorithm.Decrypt(mainCipher5, mainkey2);
 
 
-            Assert.IsTrue(//plain1.Equals(mainPlain3, StringComparison.InvariantCultureIgnoreCase)
-             //||
+            Assert.IsTrue(plain1.Equals(mainPlain3, StringComparison.InvariantCultureIgnoreCase)
+             ||
              plain2.Equals(mainPlain4, StringComparison.InvariantCultureIgnoreCase));
         }
 
