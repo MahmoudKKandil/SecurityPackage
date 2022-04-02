@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SecurityLibrary
 {
@@ -10,7 +6,30 @@ namespace SecurityLibrary
     {
         public List<int> Analyse(string plainText, string cipherText)
         {
-            throw new NotImplementedException();
+            List<int> key=new List<int>();
+            cipherText= cipherText.ToLower();
+            int keyLength = 0;
+            for (int i = 0; i < plainText.Length; i++)
+            {
+                string toFind = plainText[0].ToString() + plainText[i +0] + plainText[2*i+0];
+                if (cipherText.Contains(toFind))
+                {
+                    string toFind2 = plainText[1].ToString() + plainText[i+1] + plainText[(i*2) +1];
+                    if (cipherText.Contains(toFind2))
+                    {
+                        keyLength = i;
+                        break;
+                    }
+                   
+                }
+            }
+            int oWordLength = cipherText.Length / keyLength;
+            for (int i = 0; i < keyLength; i++)
+            {
+                string toFind = plainText[i].ToString() + plainText[i + keyLength] + plainText[i +(2* keyLength)];
+                key.Add((cipherText.IndexOf(toFind)/oWordLength)+1);
+            }
+            return key;
         }
 
         public string Decrypt(string cipherText, List<int> key)
