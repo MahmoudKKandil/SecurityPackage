@@ -91,7 +91,7 @@ namespace SecurityLibrary
 
             }
 
-           return mul(newCipher, newPlain, 2);
+            return mul(newCipher, newPlain, 2);
 
         }
         static List<int> mul(List<int> a, List<int> b, int M)
