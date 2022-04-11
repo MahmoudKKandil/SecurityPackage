@@ -18,7 +18,14 @@ namespace SecurityLibrary.AES
 
         public override string Encrypt(string plainText, string key)
         {
-            throw new NotImplementedException();
+            plainText = addRoundKey(plainText, key);
+        }
+        public string addRoundKey(string plainText, string key)
+        {
+            string newplain = "";
+          
+                
+            return newplain;
         }
     }
 }
