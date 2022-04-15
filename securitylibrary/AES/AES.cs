@@ -59,7 +59,7 @@ namespace SecurityLibrary.AES
             string newPlain = "";
 
             newPlain += addRoundKey(plainText.Substring(2), key.Substring(2));
-            Console.WriteLine(newPlain.Length);
+           
             plainText = newPlain;
 
             string[] rcon = { "01000000" , "02000000", "04000000", "08000000", "10000000", "20000000", "40000000",
@@ -74,7 +74,7 @@ namespace SecurityLibrary.AES
                 if (i != 9) newPlain = mixColumns(plainText.Substring(2));
                 else newPlain = plainText;
                 if (i == 8)
-                    Console.WriteLine(plainText.Length);
+                    
                 key = generateNewKey(key, rcon[i]);
                 plainText = addRoundKey(newPlain.Substring(2), key.Substring(2));
 
@@ -106,7 +106,9 @@ namespace SecurityLibrary.AES
                 long dec1 = Convert.ToInt64(plainText.Substring(i * 8, 8), 16);
                 long dec2 = Convert.ToInt64(key.Substring(i * 8, 8), 16);
                 long result = dec1 ^ dec2;
-                if (result.ToString("x").Length != 8) { hexResult += '0'; }
+                int len = result.ToString("x").Length;
+                while (len != 8)
+                { hexResult += '0'; ++len; }
                 hexResult += result.ToString("X");
 
             }
