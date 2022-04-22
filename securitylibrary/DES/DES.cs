@@ -252,7 +252,7 @@ namespace SecurityLibrary.DES
             var hex = string.Join("",
                 Enumerable.Range(0, binaryvalue.Length / 8)
                     .Select(i => Convert.ToByte(binaryvalue.Substring(i * 8, 8), 2).ToString("X2")));
-            return hex;
+            return "0x"+hex;
         }
     }
 }
