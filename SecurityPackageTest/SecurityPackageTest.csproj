@@ -61,9 +61,9 @@
     <Compile Include="Lab1\PlayfairTest.cs" />
     <Compile Include="Lab1\MonoalphabeticTest.cs" />
     <Compile Include="Lab1\CeaserTest.cs" />
-    <Compile Include="Lab5\AESTest.cs" />
-    <Compile Include="Lab5\DES3DESTest.cs" />
-    <Compile Include="Lab5\ExtendedEuclidTest.cs" />
+    <Compile Include="lab3\AESTest.cs" />
+    <Compile Include="lab3\DES3DESTest.cs" />
+    <Compile Include="lab3\ExtendedEuclidTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
