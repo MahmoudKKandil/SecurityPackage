@@ -16,6 +16,7 @@ namespace SecurityLibrary.AES
             throw new NotImplementedException();
         }
 
+
         public static string generateNewKey(string key, string rcon)
         {
             string lastColShifted = key.Substring(28, 6);
@@ -53,13 +54,57 @@ namespace SecurityLibrary.AES
             return newKey;
 
         }
+        static public string inverseshiftRows(string plainText)
+        {
+            string s = "";
 
-        public override string Encrypt(string plainText, string key)
+            for (int i = 0; i < 4; i++)
+            {//divide the matrix into cols
+
+                for (int j = 0; j < 4; j++)
+                {
+                    s += plainText.Substring((j * 8) + (i * 2), 2);
+
+                }
+
+
+
+            }
+            string newPlain = "";
+            newPlain += s.Substring(0, 8);
+            int start = 8;
+            for (int i = 3; i > 0; i--)
+            {
+                string str = s.Substring(start, 8);
+                newPlain += str.Substring(i * 2, 8 - (i * 2));
+                newPlain += str.Substring(0, i * 2);
+                start += 8;
+
+
+            }
+            string last = "0x";
+            for (int i = 0; i < 4; i++)
+            {
+
+                for (int j = 0; j < 4; j++)
+                {
+                    last += newPlain.Substring((j * 8) + (i * 2), 2);
+
+                }
+
+            }
+            return last;
+
+
+
+        }
+       
+         public override string Encrypt(string plainText, string key)
         {
             string newPlain = "";
 
             newPlain += addRoundKey(plainText.Substring(2), key.Substring(2));
-           
+            Console.WriteLine(newPlain.Length);
             plainText = newPlain;
 
             string[] rcon = { "01000000" , "02000000", "04000000", "08000000", "10000000", "20000000", "40000000",
@@ -74,7 +119,7 @@ namespace SecurityLibrary.AES
                 if (i != 9) newPlain = mixColumns(plainText.Substring(2));
                 else newPlain = plainText;
                 if (i == 8)
-                    
+                    Console.WriteLine(plainText.Length);
                 key = generateNewKey(key, rcon[i]);
                 plainText = addRoundKey(newPlain.Substring(2), key.Substring(2));
 
@@ -230,6 +275,9 @@ namespace SecurityLibrary.AES
             return "0x" + newcol;
 
         }
+
+
+
 
 
 

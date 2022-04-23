@@ -30,7 +30,6 @@ namespace SecurityPackageTest
             string cipher = algorithm.Encrypt(mainPlain, mainKey);
             Assert.IsTrue(cipher.Equals(mainCipher, StringComparison.InvariantCultureIgnoreCase));
         }
-
         [TestMethod]
         public void AESTestDec1()
         {
