@@ -58,11 +58,15 @@
     <Compile Include="RC4\RC4.cs" />
     <Compile Include="MainAlgorithms\RepeatingKeyVigenere.cs" />
     <Compile Include="MainAlgorithms\AutokeyVigenere.cs" />
-    <Compile Include="MD5\Ceaser.cs" />
+    <Compile Include="MainAlgorithms\Ceaser.cs" />
     <Compile Include="Exceptions\InvalidAnlysisException.cs" />
     <Compile Include="MainAlgorithms\Monoalphabetic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MainAlgorithms\RSA\RSA.cs" />
+    <Compile Include="RSA\RSA.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="RSA\desktop.ini" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
