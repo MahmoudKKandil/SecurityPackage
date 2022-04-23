@@ -184,17 +184,29 @@ namespace SecurityLibrary.DES
         }
         public override string Decrypt(string cipherText, string key)
         {
-            var BinaryPlain = hex2binary(cipherText);
-            var permutatedBinary = Perm(BinaryPlain, IP);//do the initial permutation
+            var BinaryPlain = hex2binary(plainText);
+            var permutatedBinary = "";
+            for (int i = 0; i < IP.Length; i++)
+                permutatedBinary += BinaryPlain[IP[i] - 1]; //do the initial permutation
             var leftPlain = permutatedBinary.Substring(0, 32);
             var rightPlain = permutatedBinary.Substring(32, 32);
-            var BinaryKey = hex2binary(key);
+            var BinaryKey = hex2binary(key.Replace("0x", ""));
             var NewBinaryKey = Perm(BinaryKey, K1P); //first key permutation
+        
+            var leftKey = NewBinaryKey.Substring(0, 28);
+            var rightKey = NewBinaryKey.Substring(28, 28);
+            List<string> ll = new List<string>();
 
-            var keys = getKeys(NewBinaryKey);
-            for (int nRound = 15; nRound >= 0; nRound--)
+            for (int nRound = 0; nRound < 16; nRound++)
             {
-                var expandedRight = Perm(rightPlain, EP);//do the expansion permutation
+              
+                leftKey = ShiftLeftString(leftKey, NShiftBits[nRound]);
+                rightKey = ShiftLeftString(rightKey, NShiftBits[nRound]);
+                var fullkey = leftKey + rightKey;
+                var KeySecondPerm = Perm(fullkey, K2P);//second key permutation
+
+                ll.Add(binary2hex(fullkey));
+                var expandedRight = Perm(rightPlain,EP);//do the expansion permutation
 
                 var temp = XorString(keys[nRound], expandedRight);
                 var sboxtemp = Sbox(temp);
@@ -202,14 +214,17 @@ namespace SecurityLibrary.DES
 
                 leftPlain = XorString(leftPlain, permutationTemp);
 
-                swap(ref leftPlain, ref rightPlain);
+                swap(ref leftPlain,ref rightPlain);
+
             }
             swap(ref leftPlain, ref rightPlain);            //last swap
-            cipherText = leftPlain + rightPlain;
-            string result = Perm(cipherText, FP);//second key permutation
+            plainText = leftPlain + rightPlain;
+            string result = Perm(plainText,FP);//inv initial permutation
+
             return binary2hex(result);
         }
-        private static string Perm(string orig, int[] arr)
+
+        private static string Perm(string orig,int[] arr)
         {
             var res = "";
             for (int i = 0; i < arr.Length; i++)
@@ -263,7 +278,7 @@ namespace SecurityLibrary.DES
         {
 
             string binarystring = String.Join(String.Empty,
-                hexvalue.Replace("0x", "").Select(
+                hexvalue.Select(
                     c => Convert.ToString(Convert.ToInt32(c.ToString(), 16), 2).PadLeft(4, '0')
                 )
             );
