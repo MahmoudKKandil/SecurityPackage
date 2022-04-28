@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SecurityPackageTest</RootNamespace>
     <AssemblyName>SecurityPackageTest</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -54,16 +54,16 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ICryptographic_Technique.cs" />
-    <Compile Include="Lab2\ColumnarTest.cs" />
-    <Compile Include="Lab2\HillCipherTest.cs" />
-    <Compile Include="Lab2\RailFenceTest.cs" />
-    <Compile Include="Lab2\VignereTest.cs" />
-    <Compile Include="Lab1\PlayfairTest.cs" />
-    <Compile Include="Lab1\MonoalphabeticTest.cs" />
-    <Compile Include="Lab1\CeaserTest.cs" />
-    <Compile Include="lab3\AESTest.cs" />
-    <Compile Include="lab3\DES3DESTest.cs" />
-    <Compile Include="lab3\ExtendedEuclidTest.cs" />
+    <Compile Include="Task1\PlayfairTest.cs" />
+    <Compile Include="Task1\MonoalphabeticTest.cs" />
+    <Compile Include="Task1\CeaserTest.cs" />
+    <Compile Include="Task2\ColumnarTest.cs" />
+    <Compile Include="Task2\HillCipherTest.cs" />
+    <Compile Include="Task2\RailFenceTest.cs" />
+    <Compile Include="Task2\VignereTest.cs" />
+    <Compile Include="Task3\AESTest.cs" />
+    <Compile Include="Task3\DES3DESTest.cs" />
+    <Compile Include="Task3\ExtendedEuclidTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
