@@ -64,6 +64,10 @@
     <Compile Include="lab3\AESTest.cs" />
     <Compile Include="lab3\DES3DESTest.cs" />
     <Compile Include="lab3\ExtendedEuclidTest.cs" />
+    <Compile Include="Lab7\DeffieHelmanTest.cs" />
+    <Compile Include="Lab7\ElGamalTest.cs" />
+    <Compile Include="Lab7\RC4Test.cs" />
+    <Compile Include="Lab7\RSATest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
