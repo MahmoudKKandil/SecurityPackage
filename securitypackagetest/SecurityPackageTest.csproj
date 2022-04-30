@@ -64,10 +64,6 @@
     <Compile Include="lab3\AESTest.cs" />
     <Compile Include="lab3\DES3DESTest.cs" />
     <Compile Include="lab3\ExtendedEuclidTest.cs" />
-    <Compile Include="lab6\DeffieHelmanTest.cs" />
-    <Compile Include="lab6\ElGamalTest.cs" />
-    <Compile Include="lab6\RC4Test.cs" />
-    <Compile Include="lab6\RSATest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,7 +72,6 @@
       <Name>SecurityLibrary</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
