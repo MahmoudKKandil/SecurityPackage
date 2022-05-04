@@ -14,39 +14,99 @@ namespace SecurityLibrary.RC4
         public override string Decrypt(string cipherText, string key)
         {
 
-            throw new NotImplementedException();
+            bool flag = false;
+            if (cipherText.Substring(0, 2) == "0x")
+            {
+                cipherText = ConvertHexToAsci(cipherText.Remove(0, 2));
+                key = ConvertHexToAsci(key.Remove(0, 2));
+                flag = true;
+            }
+            int[] S = new int[256];
+            for (int i = 0; i < 256; i++)
+            { S[i] = i; }
+            char[] T = new char[256];
+            char[] kk = new char[cipherText.Length];
+            char[] output = new char[cipherText.Length];
+            int ind = 0; int size = key.Length;
+            for (int i = 0; i < (256 - size); i++)
+            {
+                if (ind >= key.Length)
+                {
+
+                    ind = 0;
+
+                }
+
+                key += key[ind];
+                ind++;
+
+            }
+            T = key.ToCharArray();
+            int j = 0;
+            int temp;
+            for (int i = 0; i < 256; i++)
+            {
+                j = (j + S[i] + T[i]) % 256;
+                temp = S[i];
+                S[i] = S[j];
+                S[j] = temp;
+
+            }
+            j = 0;
+            int I = 0;
+            int t;
+            for (int k = 0; k < cipherText.Length; k++)
+            {
+                I = (I + 1) % 256;
+                j = (j + S[I]) % 256;
+                temp = S[I];
+                S[I] = S[j];
+                S[j] = temp;
+                t = (S[I] + S[j]) % 256;
+                kk[k] = (char)S[t];
+                output[k] = (char)(cipherText[k] ^ kk[k]);
+
+            }
+
+            string res = new string(output);
+            if (flag)
+            {
+                res = ConvertAsciToHex(res);
+                res = "0x" + res;
+            }
+            return res;
         }
         static public string ConvertHexToAsci(string s)
 
         {
 
-            string res = String.Empty;
+            string res = "";
 
-            for (int a = 0; a < s.Length; a = a + 2)
+            for (int i = 0; i < s.Length; i +=2)
 
             {
 
-                string Char2Convert = s.Substring(a, 2);
+                string cToConv = s.Substring(i, 2);
 
-                int n = Convert.ToInt32(Char2Convert, 16);
+                int ind = Convert.ToInt32(cToConv, 16);
 
-                char c = (char)n;
+                char ch = (char)ind;
 
-                res += c.ToString();
+                res += ch.ToString();
 
             }
 
             return res;
 
         }
-        public static string ASCIITOHex(string asciiString)
+        public static string ConvertAsciToHex(string asci)
         {
-            StringBuilder builder = new StringBuilder();
-            foreach (char c in asciiString)
+            StringBuilder br = new StringBuilder();
+            foreach (char c in asci)
             {
-                builder.Append(Convert.ToInt32(c).ToString("X"));
+                br.Append(Convert.ToInt32(c).ToString("X"));
             }
-            return builder.ToString();
+            return br.ToString();
         }
         public override  string Encrypt(string plainText, string key)
         {
@@ -107,7 +167,7 @@ namespace SecurityLibrary.RC4
             string res = new string(output);
             if (flag)
             {
-                res = ASCIITOHex(res);
+                res = ConvertAsciToHex(res);
                 res = "0x" + res;
             }
             return res;
